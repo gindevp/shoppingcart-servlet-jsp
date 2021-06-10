@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+            
+    
+    <wb-module deploy-name="Asm_Sof301-0.0.1-SNAPSHOT">
+                        
+        
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+                        
+        
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+                
+        <wb-resource deploy-path="/" source-path="/WebContent"/>
+        <wb-resource deploy-path="/" source-path="/WenContent" tag="defaultRootSource"/>
+                        
+        
+        <property name="context-root" value="Asm_Sof301"/>
+                        
+        
+        <property name="java-output-path" value="/Asm_Sof301/build/classes"/>
+                    
+    
+    </wb-module>
+        
+
+</project-modules>
