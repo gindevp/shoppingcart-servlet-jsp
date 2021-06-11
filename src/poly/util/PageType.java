@@ -1,4 +1,4 @@
-package poly.common;
+package poly.util;
 
 public enum PageType {
 	AD_USER_PAGE, AD_REPORT_PAGE, AD_VIDEO_PAGE, SITE_HOME_PAGE, SITE_LOGIN_PAGE, SITE_REGIS_PAGE,

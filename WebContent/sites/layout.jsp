@@ -17,7 +17,8 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/fontawesome-free-5.15.3-web/css/all.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/fontawesome-free-5.15.3-web/css/all.css">
 <style>
 table {
 	width: 70rem !important;
@@ -26,7 +27,7 @@ table {
 </head>
 
 <body>
-	<div class="container border">
+	<div class="container mh-100 border">
 		<nav
 			class="navbar row sticky-top navbar-expand-lg navbar-light bg-light">
 			<a class="navbar-brand" href="#">Online Entertainment</a>
@@ -44,21 +45,26 @@ table {
 						aria-haspopup="true" aria-expanded="false"> My Account </a>
 						<div class="dropdown-menu"
 							aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" href="#">Login</a> <a
-								class="dropdown-item" href="#">Forgot Password</a> <a
-								class="dropdown-item" href="#">Registration</a> <a
+							<a class="dropdown-item" href="#">Forgot Password</a> <a
 								class="dropdown-item" href="#">Logoff</a> <a
 								class="dropdown-item" href="#">Change Password</a> <a
 								class="dropdown-item" href="#">Edit Profile</a>
 						</div></li>
+				</div>
+				<div class="navbar-nav ml-auto">
+					<a class="nav-link"
+						href="${pageContext.request.contextPath }/login">Login</a> <a
+						class="nav-link" href="${pageContext.request.contextPath }/regis">Registration</a>
 				</div>
 			</div>
 		</nav>
 		<main class="row py-4">
 			<jsp:include page="${page.contentUrl }"></jsp:include>
 		</main>
-		<footer class="row footer bg-light p-2"> This is footer of
-			page </footer>
+		<footer class="row footer bg-light p-2">
+			<div class="col text-center">FPT Polytechnic &copy;2021. All
+				rights reserved.</div>
+		</footer>
 
 	</div>
 	<!-- Optional JavaScript -->
@@ -74,9 +80,12 @@ table {
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
-		<c:if test="${not empty page.scriptUrl}">
-			<jsp:include page="${page.scriptUrl }"></jsp:include>
-		</c:if>
+	<c:if test="${not empty page.scriptUrl}">
+		Founed JS File: ${pageContext.request.contextPath }/${page.scriptUrl}
+		<script type="text/javascript"
+			src="${pageContext.request.contextPath }/${page.scriptUrl}"></script>
+	</c:if>
+
 </body>
 
 </html>

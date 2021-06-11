@@ -1,55 +1,47 @@
 package poly.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Videos")
+@Table(name = "videos")
 public class Video implements Serializable {
 
 	@Id
-	@Column(name = "VideoID")
-	private String videoId;
+	@Column(name = "id")
+	private String id;
 
-	@Column(name = "Title")
+	@Column(name = "title")
 	private String title;
 
-	@Column(name = "Poster")
+	@Column(name = "poster")
 	private String poster;
 
-	@Column(name = "Views")
+	@Column(name = "views")
 	private Integer views;
 
-	@Column(name = "Description")
-	private String description;
+	@Column(name = "des")
+	private String des;
 
-	@Column(name = "Active")
+	@Column(name = "active")
 	private Integer active;
 
-	public Video() {
-		super();
+	@OneToMany(mappedBy = "video")
+	private List<Share> shares = new ArrayList<Share>();
+
+	public String getId() {
+		return id;
 	}
 
-	public Video(String videoId, String title, String poster, Integer views, String description, Integer active) {
-		super();
-		this.videoId = videoId;
-		this.title = title;
-		this.poster = poster;
-		this.views = views;
-		this.description = description;
-		this.active = active;
-	}
-
-	public String getVideoId() {
-		return videoId;
-	}
-
-	public void setVideoId(String videoId) {
-		this.videoId = videoId;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getTitle() {
@@ -76,12 +68,12 @@ public class Video implements Serializable {
 		this.views = views;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getDes() {
+		return des;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDes(String des) {
+		this.des = des;
 	}
 
 	public Integer getActive() {
@@ -92,10 +84,12 @@ public class Video implements Serializable {
 		this.active = active;
 	}
 
-	@Override
-	public String toString() {
-		return "Video [videoId=" + videoId + ", title=" + title + ", poster=" + poster + ", views=" + views
-				+ ", description=" + description + ", active=" + active + "]";
+	public List<Share> getShares() {
+		return shares;
+	}
+
+	public void setShares(List<Share> shares) {
+		this.shares = shares;
 	}
 
 }

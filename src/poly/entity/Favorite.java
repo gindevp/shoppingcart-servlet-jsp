@@ -1,6 +1,5 @@
 package poly.entity;
 
-import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -8,59 +7,51 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Favorites")
-public class Favorite implements Serializable {
+@Table(name = "favorites")
+public class Favorite {
 	@Id
-	@Column(name = "FavoriteId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer favoriteId;
+	@Column(name = "id")
+	private Integer id;
 
-	@Column(name = "Username")
-	private String username;
+	@ManyToOne
+	@JoinColumn(name = "userId")
+	private User user;
 
-	@Column(name = "VideoId")
-	private String VideoId;
+	@ManyToOne()
+	@JoinColumn(name = "videoId")
+	private Video video;
 
-	@Column(name = "LikedDate")
-	private Date likedDate;
+	@Column(name = "likedDate")
+	private Date likedDate = new Date(new java.util.Date().getTime());
 
-	public Favorite() {
-		super();
+	public Integer getId() {
+		return id;
 	}
 
-	public Favorite(Integer favoriteId, String username, String videoId, Date likedDate) {
-		super();
-		this.favoriteId = favoriteId;
-		this.username = username;
-		VideoId = videoId;
-		this.likedDate = likedDate;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public Integer getFavoriteId() {
-		return favoriteId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setFavoriteId(Integer favoriteId) {
-		this.favoriteId = favoriteId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public String getUsername() {
-		return username;
+	public Video getVideo() {
+		return video;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getVideoId() {
-		return VideoId;
-	}
-
-	public void setVideoId(String videoId) {
-		VideoId = videoId;
+	public void setVideo(Video video) {
+		this.video = video;
 	}
 
 	public Date getLikedDate() {
@@ -71,9 +62,4 @@ public class Favorite implements Serializable {
 		this.likedDate = likedDate;
 	}
 
-	@Override
-	public String toString() {
-		return "Favorite [favoriteId=" + favoriteId + ", username=" + username + ", VideoId=" + VideoId + ", likedDate="
-				+ likedDate + "]";
-	}
 }

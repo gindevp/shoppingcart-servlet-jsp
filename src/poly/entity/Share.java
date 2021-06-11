@@ -7,63 +7,54 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Shares")
+@Table(name = "shares")
 public class Share {
 	@Id
-	@Column(name = "SharedId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer shareId;
+	@Column(name = "id")
+	private Integer id;
 
-	@Column(name = "Username")
-	private String username;
+	@ManyToOne
+	@JoinColumn(name = "userId")
+	private User user;
 
-	@Column(name = "VideoId")
-	private String VideoId;
+	@ManyToOne()
+	@JoinColumn(name = "videoId")
+	private Video video;
 
-	@Column(name = "Email")
+	@Column(name = "emails")
 	private String emails;
 
-	@Column(name = "SharedDate")
-	private Date shareDate;
+	@Column(name = "sharedDate")
+	private Date sharedDate = new Date(new java.util.Date().getTime());
 
-	public Share() {
-		super();
+	public Integer getId() {
+		return id;
 	}
 
-	public Share(Integer shareId, String username, String videoId, String emails, Date shareDate) {
-		super();
-		this.shareId = shareId;
-		this.username = username;
-		VideoId = videoId;
-		this.emails = emails;
-		this.shareDate = shareDate;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public Integer getShareId() {
-		return shareId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setShareId(Integer shareId) {
-		this.shareId = shareId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public String getUsername() {
-		return username;
+	public Video getVideo() {
+		return video;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getVideoId() {
-		return VideoId;
-	}
-
-	public void setVideoId(String videoId) {
-		VideoId = videoId;
+	public void setVideo(Video video) {
+		this.video = video;
 	}
 
 	public String getEmails() {
@@ -74,18 +65,12 @@ public class Share {
 		this.emails = emails;
 	}
 
-	public Date getShareDate() {
-		return shareDate;
+	public Date getSharedDate() {
+		return sharedDate;
 	}
 
-	public void setShareDate(Date shareDate) {
-		this.shareDate = shareDate;
-	}
-
-	@Override
-	public String toString() {
-		return "Share [shareId=" + shareId + ", username=" + username + ", VideoId=" + VideoId + ", emails=" + emails
-				+ ", shareDate=" + shareDate + "]";
+	public void setSharedDate(Date sharedDate) {
+		this.sharedDate = sharedDate;
 	}
 
 }

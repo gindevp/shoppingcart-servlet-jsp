@@ -1,46 +1,54 @@
 package poly.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 public class User implements Serializable {
+
 	@Id
-	@Column(name = "Username")	
-	private String username;
-	
-	@Column(name = "Fullname")
+	@Column(name = "id")
+	private String id;
+
+	@Column(name = "password")
+	private String password;
+
+	@Column(name = "fullname")
 	private String fullname;
 
-	@Column(name = "Email")
+	@Column(name = "email")
 	private String email;
-	
-	@Column(name = "Admin")
-	private Integer admin;
 
-	public User() {
-		super();
+	@Column(name = "admin")
+	private Integer admin = 0;
+
+	@OneToMany(mappedBy = "user")
+	private List<Share> shares = new ArrayList<Share>();
+
+	public String getId() {
+		return id;
 	}
 
-	public User(String username, String fullname, String email, Integer admin) {
-		super();
-		this.username = username;
-		this.fullname = fullname;
-		this.email = email;
-		this.admin = admin;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getFullname() {
@@ -67,9 +75,18 @@ public class User implements Serializable {
 		this.admin = admin;
 	}
 
+	public List<Share> getShares() {
+		return shares;
+	}
+
+	public void setShares(List<Share> shares) {
+		this.shares = shares;
+	}
+
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", fullname=" + fullname + ", email=" + email + ", admin=" + admin + "]";
+		return "User [id=" + id + ", password=" + password + ", fullname=" + fullname + ", email=" + email + ", admin="
+				+ admin + "]";
 	}
 
 }

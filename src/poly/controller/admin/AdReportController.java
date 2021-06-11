@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import poly.common.PageInfo;
-import poly.common.PageType;
+import poly.util.PageInfo;
+import poly.util.PageType;
 
 /**
  * Servlet implementation class ReportController
