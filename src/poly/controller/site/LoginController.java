@@ -45,11 +45,11 @@ public class LoginController extends HttpServlet {
 			throws ServletException, IOException {
 		String username = CookieUtil.get("username", request);
 		if (username == null) {
-			PageInfo.PrepareAndForwardSite(request, response, PageType.SITE_LOGIN_PAGE);
+			PageInfo.prepareAndForwardSite(request, response, PageType.SITE_LOGIN_PAGE);
 			return;
 		}
 		SessionUtil.add(request, "username", username);
-		PageInfo.PrepareAndForwardSite(request, response, PageType.SITE_HOME_PAGE);
+		PageInfo.prepareAndForwardSite(request, response, PageType.SITE_HOME_PAGE);
 	}
 
 	/**
@@ -71,12 +71,12 @@ public class LoginController extends HttpServlet {
 				System.out.println("Login success");
 				System.out.println(user.toString());
 				request.setAttribute("isLogin", true);
-				PageInfo.PrepareAndForwardSite(request, response, PageType.SITE_HOME_PAGE);
+				PageInfo.prepareAndForwardSite(request, response, PageType.SITE_HOME_PAGE);
 
 			} else {
 				request.setAttribute("user", user);
 				request.setAttribute("error", "Invalid Username or Password");
-				PageInfo.PrepareAndForwardSite(request, response, PageType.SITE_LOGIN_PAGE);
+				PageInfo.prepareAndForwardSite(request, response, PageType.SITE_LOGIN_PAGE);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

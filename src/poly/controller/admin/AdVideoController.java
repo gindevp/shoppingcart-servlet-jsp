@@ -73,7 +73,7 @@ public class AdVideoController extends HttpServlet {
 		request.setAttribute("isEdit", 0);
 
 		request.setAttribute("video", new Video());
-		PageInfo.PrepareAndForward(request, response, PageType.AD_VIDEO_PAGE);
+		PageInfo.prepareAndForward(request, response, PageType.AD_VIDEO_PAGE);
 	}
 
 	private void fillTable(HttpServletRequest request, HttpServletResponse response)
@@ -81,7 +81,7 @@ public class AdVideoController extends HttpServlet {
 		List<Video> videos = videoDAO.getAll("Video");
 		request.setAttribute("videos", videos);
 		request.setAttribute("isLogin", 1);
-		PageInfo.PrepareAndForward(request, response, PageType.AD_VIDEO_PAGE);
+		PageInfo.prepareAndForward(request, response, PageType.AD_VIDEO_PAGE);
 	}
 
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -92,7 +92,7 @@ public class AdVideoController extends HttpServlet {
 		} else {
 			request.setAttribute("error", "Delete failed!");
 		}
-		PageInfo.PrepareAndForward(request, response, PageType.AD_VIDEO_PAGE);
+		PageInfo.prepareAndForward(request, response, PageType.AD_VIDEO_PAGE);
 	}
 
 	private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -118,7 +118,7 @@ public class AdVideoController extends HttpServlet {
 			e.printStackTrace();
 		}
 		this.fillTable(request, response);
-		PageInfo.PrepareAndForward(request, response, PageType.AD_VIDEO_PAGE);
+		PageInfo.prepareAndForward(request, response, PageType.AD_VIDEO_PAGE);
 	}
 
 	private void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -129,7 +129,8 @@ public class AdVideoController extends HttpServlet {
 		Video video = videoDAO.findById(id);
 		System.out.println(video.toString());
 		request.setAttribute("video", video);
-		PageInfo.PrepareAndForward(request, response, PageType.AD_VIDEO_PAGE);
+		this.fillTable(request, response);
+		PageInfo.prepareAndForward(request, response, PageType.AD_VIDEO_PAGE);
 	}
 
 	private void create(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -150,7 +151,7 @@ public class AdVideoController extends HttpServlet {
 			e.printStackTrace();
 		}
 		this.fillTable(request, response);
-		PageInfo.PrepareAndForward(request, response, PageType.AD_VIDEO_PAGE);
+		PageInfo.prepareAndForward(request, response, PageType.AD_VIDEO_PAGE);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

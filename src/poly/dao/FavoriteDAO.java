@@ -1,39 +1,40 @@
 package poly.dao;
 
+
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+
+import org.hibernate.SQLQuery;
+
+import poly.domain.FavoriteRep;
 import poly.entity.Favorite;
+import poly.util.HibernateUtil;
 
-public class FavoriteDAO extends BaseDAO<Favorite, Integer> {
+public class FavoriteDAO extends BaseDAO<Favorite, Integer>{
 
-	@Override
-	public boolean create(Favorite entity) {
-		// TODO Auto-generated method stub
-		return super.create(entity);
+	public List<Object[]> favVideoRep() {
+		String sql = "SELECT v.title, COUNT(*), MIN(f.likedDate), MAX(f.likedDate) FROM favorites f "
+				+ "JOIN videos v on f.videoId = v.id GROUP BY v.title";
+		SQLQuery<Object[]> query = this.session.createSQLQuery(sql);
+		List<Object[]> list = query.list();
+		return list;
 	}
-
-	@Override
-	public boolean update(Favorite entity) {
-		// TODO Auto-generated method stub
-		return super.update(entity);
+	
+	public List<Object[]> favUserRep(String videoId) {
+		String sql = "SELECT u.username, u.fullname, u.email, f.likedDate FROM favorites f "
+				+ "join users u on f.userId = u.username join videos v on f.videoId = v.id where v.id = :videoId";
+		SQLQuery<Object[]> query = this.session.createSQLQuery(sql);
+		query.setParameter("videoId", videoId);
+		List<Object[]> list = query.list();
+		return list;
 	}
-
-	@Override
-	public boolean delete(Favorite entity) {
-		// TODO Auto-generated method stub
-		return super.delete(entity);
-	}
-
-	@Override
-	public List<Favorite> getAll(String name) {
-		// TODO Auto-generated method stub
-		return super.getAll(name);
-	}
-
+	
+	
+	
 	@Override
 	public Favorite findById(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

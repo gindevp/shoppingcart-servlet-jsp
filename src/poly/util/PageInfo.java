@@ -20,7 +20,7 @@ public class PageInfo {
 		router.put(PageType.SITE_LOGIN_PAGE, new PageInfo("Login", "/sites/users/login.jsp", null));
 		router.put(PageType.SITE_REGIS_PAGE, new PageInfo("Registrtion", "/sites/users/regis.jsp", null));
 		router.put(PageType.SITE_CHANGE_PASSWORD_PAGE,
-				new PageInfo("Change Password", "/sites/users/change-password.jsp", null));
+				new PageInfo("Change Password", "/sites/users/change_password.jsp", null));
 		router.put(PageType.SITE_EDIT_PROFILE_PAGE,
 				new PageInfo("Edit Profile", "/sites/users/edit_profile.jsp", null));
 		router.put(PageType.SITE_FORGOT_PASSWORD_PAGE,
@@ -31,14 +31,14 @@ public class PageInfo {
 
 	}
 
-	public static void PrepareAndForward(HttpServletRequest request, HttpServletResponse response, PageType type)
+	public static void prepareAndForward(HttpServletRequest request, HttpServletResponse response, PageType type)
 			throws ServletException, IOException {
 		PageInfo page = router.get(type);
 		request.setAttribute("page", page);
 		request.getRequestDispatcher("/admin/layout.jsp").forward(request, response);
 	}
 
-	public static void PrepareAndForwardSite(HttpServletRequest request, HttpServletResponse response, PageType type)
+	public static void prepareAndForwardSite(HttpServletRequest request, HttpServletResponse response, PageType type)
 			throws ServletException, IOException {
 		PageInfo page = router.get(type);
 		request.setAttribute("page", page);

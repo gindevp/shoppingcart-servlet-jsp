@@ -9,11 +9,10 @@ public class FavoriteRep {
 	private Date oldest;
 
 	public FavoriteRep() {
-		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public FavoriteRep(String title, Long count, Date newest, Date oldest) {
-		super();
 		this.title = title;
 		this.count = count;
 		this.newest = newest;

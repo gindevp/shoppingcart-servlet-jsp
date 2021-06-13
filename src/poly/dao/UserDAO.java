@@ -35,5 +35,9 @@ public class UserDAO extends BaseDAO<User, String> {
 		// TODO Auto-generated method stub
 		return this.session.get(User.class, id);
 	}
+	
+	public void changePassword(String username, String oldPassword, String newPassword) {
+		
+	}
 
 }

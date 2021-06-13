@@ -25,7 +25,7 @@ public class LogoffController extends HttpServlet {
 		CookieUtil.add("username", null, 0, resp);
 		SessionUtil.invalidate(req);
 		req.setAttribute("isLogin", false);
-		PageInfo.PrepareAndForwardSite(req, resp, PageType.SITE_HOME_PAGE);
+		PageInfo.prepareAndForwardSite(req, resp, PageType.SITE_HOME_PAGE);
 	}
 
 }

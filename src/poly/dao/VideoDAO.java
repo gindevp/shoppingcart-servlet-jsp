@@ -2,6 +2,8 @@ package poly.dao;
 
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+
 import poly.entity.Video;
 
 public class VideoDAO extends BaseDAO<Video, String> {
@@ -34,6 +36,13 @@ public class VideoDAO extends BaseDAO<Video, String> {
 	public Video findById(String id) {
 		// TODO Auto-generated method stub
 		return this.session.get(Video.class, id);
+	}
+	
+	public List<Video> getActiveVideo() {
+		String sql = "from Video v where v.active = 1";
+		TypedQuery<Video> query = this.session.createQuery(sql, Video.class);
+		List<Video> list = query.getResultList();
+		return list;
 	}
 
 }

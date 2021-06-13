@@ -4,7 +4,7 @@
 
 	<div class="card">
 		<div class="card-header">
-			<h5 class="text-primary">Registration</h5>
+			<h5 class="text-primary">Change Password</h5>
 		</div>
 		<div class="card-body">
 			<div class="row">
@@ -25,24 +25,22 @@
 
 			<div class="row">
 				<div class="form-group col">
-					<label for="">Fullname:</label> <input type="text" name="fullname"
+					<label for="">New Password:</label> <input type="password" name="newPassword"
 						id="" class="form-control" placeholder=""
 						aria-describedby="helpId"> <small id="helpId"
-						class="text-muted">Fullname is required</small>
+						class="text-muted">New Password is required</small>
 				</div>
 
 				<div class="form-group col">
-					<label for="">Email Address:</label> <input type="email"
-						name="email" id="" class="form-control" placeholder=""
+					<label for="">Email Address:</label> <input type="password"
+						name="confirmPassword" id="" class="form-control" placeholder=""
 						aria-describedby="helpId"> <small id="helpId"
-						class="text-muted">Email Address is required</small>
+						class="text-muted">Confirm Password is required</small>
 				</div>
 			</div>
 		</div>
 		<div class="card-footer text-right">
-			<button class="btn btn-primary">
-				<i class="fas fa-sign-in-alt"></i> Sign Up
-			</button>
+			<button class="btn btn-primary">Change Password</button>
 		</div>
 	</div>
 </form>

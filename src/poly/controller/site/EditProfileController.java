@@ -42,7 +42,7 @@ public class EditProfileController extends HttpServlet {
 		try {
 			User user = userDAO.findById(username);
 			request.setAttribute("user", user);
-			PageInfo.PrepareAndForwardSite(request, response, PageType.SITE_EDIT_PROFILE_PAGE);
+			PageInfo.prepareAndForwardSite(request, response, PageType.SITE_EDIT_PROFILE_PAGE);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -61,7 +61,7 @@ public class EditProfileController extends HttpServlet {
 
 			if (userDAO.update(user)) {
 				request.setAttribute("message", "Updated succesfully!");
-				PageInfo.PrepareAndForwardSite(request, response, PageType.SITE_EDIT_PROFILE_PAGE);
+				PageInfo.prepareAndForwardSite(request, response, PageType.SITE_EDIT_PROFILE_PAGE);
 			} else {
 				request.setAttribute("error", "Update failed!");
 			}

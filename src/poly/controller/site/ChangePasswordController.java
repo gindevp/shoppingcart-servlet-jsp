@@ -7,35 +7,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import poly.dao.UserDAO;
+import poly.entity.User;
 import poly.util.PageInfo;
 import poly.util.PageType;
 import poly.util.SessionUtil;
 
-/**
- * Servlet implementation class HomeController
- */
-@WebServlet("/home")
-public class HomeController extends HttpServlet {
+
+@WebServlet("/sites/change_password")
+public class ChangePasswordController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public HomeController() {
+	private UserDAO userDao;
+	
+    public ChangePasswordController() {
         super();
-        // TODO Auto-generated constructor stub
+        this.userDao = new UserDAO();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PageInfo.prepareAndForwardSite(request, response, PageType.SITE_HOME_PAGE);
+		String username = SessionUtil.getLoginedUsername(request);
+		if (username == null) {
+			PageInfo.prepareAndForwardSite(request, response, PageType.SITE_LOGIN_PAGE);
+		}
+		PageInfo.prepareAndForwardSite(request, response, PageType.SITE_CHANGE_PASSWORD_PAGE);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

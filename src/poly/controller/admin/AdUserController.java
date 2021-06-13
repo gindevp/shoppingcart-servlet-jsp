@@ -29,7 +29,7 @@ public class AdUserController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PageInfo.PrepareAndForward(request, response, PageType.AD_USER_PAGE);
+		PageInfo.prepareAndForward(request, response, PageType.AD_USER_PAGE);
 	}
 
 	/**

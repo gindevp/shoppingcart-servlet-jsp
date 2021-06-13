@@ -144,5 +144,4 @@
 			</tbody>
 		</table>
 	</div>
-	${isEdit }
 </div>
