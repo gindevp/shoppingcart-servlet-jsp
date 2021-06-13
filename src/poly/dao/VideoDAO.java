@@ -33,7 +33,7 @@ public class VideoDAO extends BaseDAO<Video, String> {
 	@Override
 	public Video findById(String id) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.session.get(Video.class, id);
 	}
 
 }

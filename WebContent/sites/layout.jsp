@@ -11,6 +11,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<base href="/Asm_Sof301/">
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
@@ -38,24 +39,27 @@ table {
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav">
+				<li class="nav-item"><a href="home" class="nav-link active">Home</a></li>
 					<li class="nav-item"><a href="" class="nav-link">Favorite</a></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#"
 						id="navbarDropdownMenuLink" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false"> My Account </a>
-						<div class="dropdown-menu"
-							aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" href="#">Forgot Password</a> <a
-								class="dropdown-item" href="#">Logoff</a> <a
-								class="dropdown-item" href="#">Change Password</a> <a
-								class="dropdown-item" href="#">Edit Profile</a>
+						aria-haspopup="true" aria-expanded="false"> My Account</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							<c:if test="${ ! isLogin }"> 
+								<a class="dropdown-item" href="login">Login</a>
+								<a class="dropdown-item" href="#">Forgot Password</a> 
+								<a class="dropdown-item" href="regis">Registration</a>							
+							</c:if>	
+							<c:if test="${isLogin }">
+								<a class="dropdown-item" href="logoff">Logoff</a> 
+								<a class="dropdown-item" href="#">Change Password</a> 
+								<a class="dropdown-item" href="edit_profile">Edit Profile</a>
+							</c:if>						
+
 						</div></li>
 				</div>
-				<div class="navbar-nav ml-auto">
-					<a class="nav-link"
-						href="${pageContext.request.contextPath }/login">Login</a> <a
-						class="nav-link" href="${pageContext.request.contextPath }/regis">Registration</a>
-				</div>
+				<div class="navbar-nav ml-auto"></div>
 			</div>
 		</nav>
 		<main class="row py-4">

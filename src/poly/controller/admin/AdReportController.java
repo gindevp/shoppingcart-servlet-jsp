@@ -13,7 +13,7 @@ import poly.util.PageType;
 /**
  * Servlet implementation class ReportController
  */
-@WebServlet("/ReportController")
+@WebServlet("/reports")
 public class AdReportController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -29,7 +29,7 @@ public class AdReportController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PageInfo.PrepareAndForward(request, response, PageType.AD_REPORT_PAGE, true);
+		PageInfo.PrepareAndForward(request, response, PageType.AD_REPORT_PAGE);
 	}
 
 	/**

@@ -17,8 +17,8 @@ import javax.persistence.Table;
 public class User implements Serializable {
 
 	@Id
-	@Column(name = "id")
-	private String id;
+	@Column(name = "username")
+	private String username;
 
 	@Column(name = "password")
 	private String password;
@@ -35,12 +35,12 @@ public class User implements Serializable {
 	@OneToMany(mappedBy = "user")
 	private List<Share> shares = new ArrayList<Share>();
 
-	public String getId() {
-		return id;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -85,7 +85,7 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", password=" + password + ", fullname=" + fullname + ", email=" + email + ", admin="
+		return "User [username=" + username + ", password=" + password + ", fullname=" + fullname + ", email=" + email + ", admin="
 				+ admin + "]";
 	}
 

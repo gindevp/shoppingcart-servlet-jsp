@@ -9,18 +9,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import poly.util.PageInfo;
 import poly.util.PageType;
+import poly.util.SessionUtil;
 
 /**
  * Servlet implementation class HomeController
  */
-@WebServlet("/sites/home")
-public class SiteHomeController extends HttpServlet {
+@WebServlet("/home")
+public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SiteHomeController() {
+    public HomeController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,7 +30,7 @@ public class SiteHomeController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PageInfo.PrepareAndForward(request, response, PageType.SITE_HOME_PAGE, false);
+		PageInfo.PrepareAndForwardSite(request, response, PageType.SITE_HOME_PAGE);
 	}
 
 	/**

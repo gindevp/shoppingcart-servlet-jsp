@@ -36,6 +36,17 @@ public class Video implements Serializable {
 	@OneToMany(mappedBy = "video")
 	private List<Share> shares = new ArrayList<Share>();
 
+	@OneToMany(mappedBy = "video")
+	private List<Favorite> favorites = new ArrayList<Favorite>();
+
+	public List<Favorite> getFavorites() {
+		return favorites;
+	}
+
+	public void setFavorites(List<Favorite> favorites) {
+		this.favorites = favorites;
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -90,6 +101,12 @@ public class Video implements Serializable {
 
 	public void setShares(List<Share> shares) {
 		this.shares = shares;
+	}
+
+	@Override
+	public String toString() {
+		return "Video [id=" + id + ", title=" + title + ", poster=" + poster + ", views=" + views + ", des=" + des
+				+ ", active=" + active + "]";
 	}
 
 }

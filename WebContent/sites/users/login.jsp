@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<form class="col-6 mx-auto" action="" method="post">
+<form class="col-6 mx-auto" action="${pageContext.request.contextPath }/login" method="post">
 	<div class="card">
 		<div class="card-header">
 			<h5 class="text-primary">LOGIN</h5>
@@ -14,7 +14,7 @@
 			<div class="form-group">
 				<label for="">Username:</label> <input type="text" name="username"
 					id="" class="form-control" placeholder="" aria-describedby="helpId"
-					value="${user.id }"> <small id="helpId" class="text-muted">Username
+					value="${user.username }"> <small id="helpId" class="text-muted">Username
 					is required</small>
 			</div>
 

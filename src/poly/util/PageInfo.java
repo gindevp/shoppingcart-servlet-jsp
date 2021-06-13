@@ -15,29 +15,34 @@ public class PageInfo {
 		router.put(PageType.AD_USER_PAGE, new PageInfo("User Management", "/admin/users/users.jsp", null));
 		router.put(PageType.AD_REPORT_PAGE, new PageInfo("Report", "/admin/reports/reports.jsp", null));
 		router.put(PageType.AD_VIDEO_PAGE, new PageInfo("Video Management", "/admin/videos/videos.jsp", null));
-		
+
 		router.put(PageType.SITE_HOME_PAGE, new PageInfo("Home", "/sites/home/home.jsp", null));
 		router.put(PageType.SITE_LOGIN_PAGE, new PageInfo("Login", "/sites/users/login.jsp", null));
 		router.put(PageType.SITE_REGIS_PAGE, new PageInfo("Registrtion", "/sites/users/regis.jsp", null));
-		router.put(PageType.SITE_CHANGE_PASSWORD_PAGE, new PageInfo("Change Password", "/sites/users/change-password.jsp", null));
-		router.put(PageType.SITE_EDIT_PROFILE_PAGE, new PageInfo("Edit Profile", "/sites/users/edit-profile.jsp", null));
-		router.put(PageType.SITE_FORGOT_PASSWORD_PAGE, new PageInfo("Forgot Password", "/sites/users/forgot-password.jsp", null));
+		router.put(PageType.SITE_CHANGE_PASSWORD_PAGE,
+				new PageInfo("Change Password", "/sites/users/change-password.jsp", null));
+		router.put(PageType.SITE_EDIT_PROFILE_PAGE,
+				new PageInfo("Edit Profile", "/sites/users/edit_profile.jsp", null));
+		router.put(PageType.SITE_FORGOT_PASSWORD_PAGE,
+				new PageInfo("Forgot Password", "/sites/users/forgot-password.jsp", null));
 		router.put(PageType.SITE_FAVORITE_PAGE, new PageInfo("Favorite", "/sites/videos/favorite.jsp", null));
 		router.put(PageType.SITE_VIDEO_DETAIL_PAGE, new PageInfo("Video Detail", "/sites/videos/detail.jsp", null));
 		router.put(PageType.SITE_SHARE_PAGE, new PageInfo("Share", "/sites/videos/share.jsp", null));
 
 	}
-	
 
-	public static void PrepareAndForward(HttpServletRequest request, HttpServletResponse response, PageType type, boolean role)
+	public static void PrepareAndForward(HttpServletRequest request, HttpServletResponse response, PageType type)
 			throws ServletException, IOException {
 		PageInfo page = router.get(type);
 		request.setAttribute("page", page);
-		if (role) {
-			request.getRequestDispatcher("/admin/layout.jsp").forward(request, response);
-		} else {
-			request.getRequestDispatcher("/sites/layout.jsp").forward(request, response);
-		}
+		request.getRequestDispatcher("/admin/layout.jsp").forward(request, response);
+	}
+
+	public static void PrepareAndForwardSite(HttpServletRequest request, HttpServletResponse response, PageType type)
+			throws ServletException, IOException {
+		PageInfo page = router.get(type);
+		request.setAttribute("page", page);
+		request.getRequestDispatcher("/sites/layout.jsp").forward(request, response);
 	}
 
 	private String title;

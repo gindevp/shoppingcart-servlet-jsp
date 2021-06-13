@@ -16,6 +16,7 @@ public class SessionUtil {
 	
 	public static void invalidate(HttpServletRequest request) {
 		HttpSession session = request.getSession();
+		session.removeAttribute("username");
 		session.invalidate();
 	}
 	

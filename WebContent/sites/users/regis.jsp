@@ -16,8 +16,8 @@
 			<div class="row">
 
 				<div class="form-group col">
-					<label for="">Username:</label> <input type="text" name="id"
-						required id="" class="form-control" value="${user.id }"> <small
+					<label for="">Username:</label> <input type="text" name="username"
+						required id="" class="form-control" value="${user.username }"> <small
 						id="helpId" class="text-muted">Username is required</small>
 				</div>
 
