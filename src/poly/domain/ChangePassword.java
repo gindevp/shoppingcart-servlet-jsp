@@ -50,4 +50,10 @@ public class ChangePassword {
 		this.confirmPassword = confirmPassword;
 	}
 
+	@Override
+	public String toString() {
+		return "ChangePassword [username=" + username + ", password=" + password + ", newPassword=" + newPassword
+				+ ", confirmPassword=" + confirmPassword + "]";
+	}
+
 }

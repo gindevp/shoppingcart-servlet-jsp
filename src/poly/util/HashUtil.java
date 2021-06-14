@@ -11,4 +11,8 @@ public class HashUtil {
 	public static boolean verify(String origin, String hashed) {
 		return BCrypt.checkpw(origin, hashed);
 	}
+	
+	public static String name() {
+		return BCrypt.gensalt();
+	}
 }

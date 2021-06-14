@@ -7,8 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.beanutils.BeanUtils;
+
 import poly.dao.UserDAO;
+import poly.domain.ChangePassword;
 import poly.entity.User;
+import poly.util.HashUtil;
 import poly.util.PageInfo;
 import poly.util.PageType;
 import poly.util.SessionUtil;
@@ -25,17 +29,35 @@ public class ChangePasswordController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = SessionUtil.getLoginedUsername(request);
-		if (username == null) {
-			PageInfo.prepareAndForwardSite(request, response, PageType.SITE_LOGIN_PAGE);
-		}
+
 		PageInfo.prepareAndForwardSite(request, response, PageType.SITE_CHANGE_PASSWORD_PAGE);
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		ChangePassword newUser = new ChangePassword();
+		String usernameLogin = SessionUtil.getLoginedUsername(request);
+		User userLogin = userDao.findById(usernameLogin);
+		try {
+			BeanUtils.populate(newUser, request.getParameterMap());
+			if (HashUtil.verify(newUser.getPassword(), userLogin.getPassword())) {
+				if (newUser.getNewPassword().equalsIgnoreCase(newUser.getConfirmPassword())) {
+					userLogin.setPassword(HashUtil.hash(newUser.getNewPassword()));
+					if (userDao.update(userLogin)) {
+						request.setAttribute("message", "Password has changed!");
+					}
+					
+				} else {
+					request.setAttribute("error", "New Password and New Confirm Password are not identical!");
+				}
+			} else {
+				request.setAttribute("error", "Invalid Username or Password");
+			}
+			PageInfo.prepareAndForwardSite(request, response, PageType.SITE_CHANGE_PASSWORD_PAGE);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

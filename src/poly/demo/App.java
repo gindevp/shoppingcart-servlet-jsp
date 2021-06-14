@@ -2,25 +2,28 @@ package poly.demo;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import poly.dao.FavoriteDAO;
 import poly.dao.UserDAO;
 import poly.dao.VideoDAO;
+import poly.domain.Email;
 import poly.domain.FavoriteRep;
 import poly.entity.User;
 import poly.entity.Video;
 import poly.util.HashUtil;
+import poly.util.MailUtil;
 
 public class App {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-//		UserDAO dao = new UserDAO();
+		UserDAO udao = new UserDAO();
 //		User user = dao.findById("user1");
 //		user.setPassword(HashUtil.hash("123"));
 //		dao.update(user);
 
-		VideoDAO dao = new VideoDAO();
+		VideoDAO vdao = new VideoDAO();
 //		Video video = new Video();
 //		video.setId("ID1");
 //		video.setTitle("Title1");
@@ -30,18 +33,26 @@ public class App {
 //		video.setActive(1);
 //		dao.create(video);
 
-		FavoriteDAO favDao = new FavoriteDAO();
-		try {
-			List<Object[]> list = favDao.favUserRep("video1");
-			list.forEach(i -> {
-				System.out.println(i[0]);
-			});
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+//		FavoriteDAO favDao = new FavoriteDAO();
+//		try {
+//			List<Object[]> list = favDao.favUserRep("video1");
+//			list.forEach(i -> {
+//				System.out.println(i[0]);
+//			});
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
 		
-//		List<Video> list = dao.getActiveVideo();
-//		list.forEach(i -> System.out.println(i.toString()));
+		List<Video> list = vdao.getActiveVideo();
+		list.forEach(i -> System.out.println(i.toString()));
+		
+//		Email email = new Email("hungnnph09719@fpt.edu.vn", "Content <br> fsd", "Subject");
+//		try {
+//			MailUtil.send(email);
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+//		System.out.println(new Random().nextInt(900000) + 100000);
 	}
 
 }

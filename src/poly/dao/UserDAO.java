@@ -2,6 +2,8 @@ package poly.dao;
 
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+
 import poly.entity.User;
 
 public class UserDAO extends BaseDAO<User, String> {
@@ -36,8 +38,13 @@ public class UserDAO extends BaseDAO<User, String> {
 		return this.session.get(User.class, id);
 	}
 	
-	public void changePassword(String username, String oldPassword, String newPassword) {
-		
+	public User findByIdAndEmail(String username, String email) {
+		String query = "select u from User u where u.username = :username and u.email = :email";
+		TypedQuery<User> typedQuery = this.session.createQuery(query, User.class);
+		typedQuery.setParameter("username", username);
+		typedQuery.setParameter("email", email);		
+		User user = typedQuery.getSingleResult();
+		return user;
 	}
 
 }

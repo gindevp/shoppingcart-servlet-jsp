@@ -53,7 +53,6 @@ public abstract class BaseDAO<E, K> {
 
 	public List<E> getAll(String name) {
 		return session.createQuery("from " + name).list();
-
 	}
 
 	public abstract E findById(K id);

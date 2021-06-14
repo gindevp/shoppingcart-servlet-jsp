@@ -40,7 +40,7 @@
 	</div>
 	<div class="tab-pane fade show ${isSelectTab2 ? "active" : ""}" id="favUsers" role="tabpanel"
 		aria-labelledby="favUsers-tab">
-		<form action="reports/favuser" method="get">
+		<form action="admin/reports/favuser" method="get">
 			<div class="form-inline my-4">
 				<label class="mx-2" for="">Video Title: </label>
 				<div class="form-group">
@@ -78,13 +78,13 @@
 
 	<div class="tab-pane fade show ${isSelectTab3 ? "active" : ""}" id="share" role="tabpanel"
 		aria-labelledby="share-tab">
-		<form action="" method="post">
+		<form action="admin/reports/favshare" method="get">
 			<div class="form-inline my-4">
 				<label class="mx-2" for="">Video Title: </label>
 				<div class="form-group">
-					<select class="form-control mx-2" id="exampleFormControlSelect1">
-						<c:forEach var="video" items="${videos }">
-							<option value="${video.id }">${video.title }</option>
+					<select class="form-control mx-2" name="videoUserId1" id="exampleFormControlSelect1">
+						<c:forEach var="video1" items="${videos }">
+							<option ${video1.id == videoSelected1 ? "selected" : "" } value="${video1.id }">${video1.title }</option>
 						</c:forEach>
 					</select>
 				</div>
@@ -100,11 +100,13 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>1</td>
-					<td>2</td>
-					<td>3</td>
-				</tr>
+				<c:forEach var="item" items="${favShare }">
+					<tr>
+						<td>${item[0] }</td>
+						<td>${item[1] }</td>
+						<td>${item[2] }</td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>

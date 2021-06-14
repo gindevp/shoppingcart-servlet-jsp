@@ -23,7 +23,7 @@ import poly.util.UploadUtil;
  * Servlet implementation class VideoController
  */
 @WebServlet(urlPatterns = { "/admin/videos", "/admin/videos/create", "/admin/videos/store", "/admin/videos/edit",
-		"/admin/videos/update", "/admin/videos/delete", "/admin/videos/index" })
+		"/admin/videos/update", "/admin/videos/delete", "/admin/videos/index", "/admin/videos/reset" })
 @MultipartConfig
 public class AdVideoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -45,7 +45,9 @@ public class AdVideoController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getRequestURI().replace(request.getContextPath() + "/admin/videos", "");
-		System.out.println("_Action: " + action);
+
+		System.out.println("URI: " + request.getRequestURI());
+		System.out.println("Action: " + action);
 		switch (action) {
 		case "/create":
 			this.create(request, response);
@@ -63,6 +65,9 @@ public class AdVideoController extends HttpServlet {
 			this.index(request, response);
 			break;
 		}
+		this.fillTable(request, response);
+		request.setAttribute("viewAdmin", "/admin/videos/videos.jsp");
+		request.getRequestDispatcher("/admin/layout.jsp").forward(request, response);
 	}
 
 	private void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -73,15 +78,12 @@ public class AdVideoController extends HttpServlet {
 		request.setAttribute("isEdit", 0);
 
 		request.setAttribute("video", new Video());
-		PageInfo.prepareAndForward(request, response, PageType.AD_VIDEO_PAGE);
 	}
 
 	private void fillTable(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		List<Video> videos = videoDAO.getAll("Video");
 		request.setAttribute("videos", videos);
-		request.setAttribute("isLogin", 1);
-		PageInfo.prepareAndForward(request, response, PageType.AD_VIDEO_PAGE);
 	}
 
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -92,7 +94,6 @@ public class AdVideoController extends HttpServlet {
 		} else {
 			request.setAttribute("error", "Delete failed!");
 		}
-		PageInfo.prepareAndForward(request, response, PageType.AD_VIDEO_PAGE);
 	}
 
 	private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -101,12 +102,18 @@ public class AdVideoController extends HttpServlet {
 			BeanUtils.populate(video, request.getParameterMap());
 			String id = request.getParameter("id");
 			Video video2 = videoDAO.findById(id);
+			
 			System.out.println("Before: " + video.toString());
-			System.out.println("Old: " + video2.toString());
+			System.out.println("Poster change: " + video.getPoster());
+			
 			video.setId(id);
-			video.setPoster(UploadUtil.upload(request, "cover", "images", video.getId()));
+			if (video.getPoster() == null) {
+				video.setPoster(video2.getPoster());
+			} else {
+				video.setPoster(UploadUtil.upload(request, "uploadfile", "images", video.getId()));
+			}
 
-			System.out.println(video.toString());
+			System.out.println("Edited: " + video.toString());
 
 			if (videoDAO.update(video)) {
 				request.setAttribute("message", "Updated succesfully");
@@ -117,20 +124,14 @@ public class AdVideoController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		this.fillTable(request, response);
-		PageInfo.prepareAndForward(request, response, PageType.AD_VIDEO_PAGE);
 	}
 
 	private void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.isEdit = 1;
-		request.setAttribute("isEdit", isEdit);
 		String id = request.getParameter("id");
 		System.out.println("ID: " + id);
 		Video video = videoDAO.findById(id);
 		System.out.println(video.toString());
 		request.setAttribute("video", video);
-		this.fillTable(request, response);
-		PageInfo.prepareAndForward(request, response, PageType.AD_VIDEO_PAGE);
 	}
 
 	private void create(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -138,7 +139,7 @@ public class AdVideoController extends HttpServlet {
 		try {
 			BeanUtils.populate(video, request.getParameterMap());
 			if (video.getPoster() != null) {
-				video.setPoster(UploadUtil.upload(request, "cover", "images", video.getId()));
+				video.setPoster(UploadUtil.upload(request, "uploadfile", "images", video.getId()));
 			}
 
 			if (videoDAO.create(video)) {
@@ -150,8 +151,6 @@ public class AdVideoController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		this.fillTable(request, response);
-		PageInfo.prepareAndForward(request, response, PageType.AD_VIDEO_PAGE);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -24,8 +24,7 @@ public class LogoffController extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		CookieUtil.add("username", null, 0, resp);
 		SessionUtil.invalidate(req);
-		req.setAttribute("isLogin", false);
-		PageInfo.prepareAndForwardSite(req, resp, PageType.SITE_HOME_PAGE);
+		resp.sendRedirect(req.getContextPath() + "/login");
 	}
 
 }

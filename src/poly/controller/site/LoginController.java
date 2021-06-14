@@ -43,13 +43,9 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String username = CookieUtil.get("username", request);
-		if (username == null) {
-			PageInfo.prepareAndForwardSite(request, response, PageType.SITE_LOGIN_PAGE);
-			return;
-		}
-		SessionUtil.add(request, "username", username);
-		PageInfo.prepareAndForwardSite(request, response, PageType.SITE_HOME_PAGE);
+
+		request.getRequestDispatcher("/sites/users/login.jsp").forward(request, response);
+
 	}
 
 	/**
@@ -68,15 +64,16 @@ public class LoginController extends HttpServlet {
 			if (user != null && HashUtil.verify(form.getPassword(), user.getPassword())) {
 				SessionUtil.add(request, "username", user.getUsername());
 				CookieUtil.add("username", user.getUsername(), form.isRem() ? 24 : 0, response);
-				System.out.println("Login success");
-				System.out.println(user.toString());
 				request.setAttribute("isLogin", true);
-				PageInfo.prepareAndForwardSite(request, response, PageType.SITE_HOME_PAGE);
-
+				if (user.getAdmin() == 1) {
+					PageInfo.prepareAndForward(request, response, PageType.AD_VIDEO_PAGE);
+				} else {
+					request.getRequestDispatcher("/sites/home").forward(request, response);
+				}
 			} else {
 				request.setAttribute("user", user);
 				request.setAttribute("error", "Invalid Username or Password");
-				PageInfo.prepareAndForwardSite(request, response, PageType.SITE_LOGIN_PAGE);
+				request.getRequestDispatcher("/sites/users/login.jsp").forward(request, response);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

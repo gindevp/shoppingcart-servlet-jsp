@@ -18,18 +18,15 @@ import poly.util.PageType;
 import poly.util.SessionUtil;
 
 @WebFilter(urlPatterns = {
-		"/change_password",
-		"/edit_profile",
-		"/forgot_password",
-		"/admin/*",
-		"/sites/*"
+		"/sites/*",
+		"/admin/*"
 })
-public class AuthFilter implements Filter{
+public class AuthFilter implements Filter {
 
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -37,17 +34,21 @@ public class AuthFilter implements Filter{
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
-		
-		User user = (User) SessionUtil.get((HttpServletRequest) request, "user");
-		if (user == null) { 
-			PageInfo.prepareAndForwardSite(request, response, PageType.SITE_LOGIN_PAGE);
+
+		String username = SessionUtil.getLoginedUsername(request);
+		System.out.println("Filter: " + username);
+
+		if (username == null) {
+			response.sendRedirect(request.getContextPath() + "/login");
+		} else {
+			chain.doFilter(req, res);
 		}
 	}
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

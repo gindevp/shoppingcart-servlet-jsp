@@ -23,11 +23,11 @@
 					<div class="row">
 						<div class="col-5">
 							<img required
-								src="/Asm_Sof301/images/${video.poster != null ? video.poster : 'default.jpg' }"
+								src="${pageContext.request.contextPath }/images/${video.poster != null ? video.poster : 'default.jpg' }"
 								width="100%" class="img-fluid p-3 border">
 							<div class="form-group mt-3">
 								<label for="exampleFormControlFile1">Change Poster</label> <input
-									type="file" class="form-control-file" name="cover"
+									type="file" class="form-control-file" name="uploadfile"
 									id="exampleFormControlFile1">
 							</div>
 						</div>
@@ -74,16 +74,16 @@
 						<div class="col">
 							<div class="form-group">
 								<label>Description:</label>
-								<textarea class="form-control" rows="" cols="" name="des"></textarea>
+								<textarea class="form-control" rows="" cols="" name="des">${video.des }</textarea>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="card-footer text-muted">
 					<button ${isEdit == 1 ? "disabled" : "" }
-						formaction="videos/create" class="btn btn-primary">Create</button>
+						formaction="admin/videos/create" class="btn btn-primary">Create</button>
 					<button ${isEdit == 0 ? "disabled" : "" }
-						formaction="videos/update" class="btn btn-warning">Update</button>
+						formaction="admin/videos/update" class="btn btn-warning">Update</button>
 						
 					<button type="button" class="btn btn-danger" data-toggle="modal"
 						data-target="#exampleModal${video.id }">Delete</button> <!-- Modal -->
@@ -104,14 +104,14 @@
 									<button type="button" class="btn btn-secondary"
 										data-dismiss="modal">Cancel</button>
 									<a
-										href="videos/delete?id=${video.id}"
+										href="admin/videos/delete?id=${video.id}"
 										class="btn btn-danger">Delete</a>
 								</div>
 							</div>
 						</div>
 					</div>
 					
-					<button formaction="videos" class="btn btn-info">Reset</button>
+					<button formaction="admin/videos/reset" class="btn btn-info">Reset</button>
 				</div>
 			</div>
 		</form>
@@ -137,7 +137,7 @@
 						<td>${item.views }</td>
 						<td>${item.active == 1 ? "Active" : "Inactive" }</td>
 						<td><a class="btn btn-warning"
-							href="videos/edit?id=${item.id }">Edit</a>
+							href="admin/videos/edit?id=${item.id }">Edit</a>
 					</tr>
 
 				</c:forEach>

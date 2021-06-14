@@ -33,7 +33,7 @@ public class RegisController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		PageInfo.prepareAndForwardSite(request, response, PageType.SITE_REGIS_PAGE);
+		request.getRequestDispatcher("/sites/users/regis.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -46,11 +46,12 @@ public class RegisController extends HttpServlet {
 			user.setPassword(HashUtil.hash(user.getPassword()));
 			if (userDAO.create(user)) {
 				request.setAttribute("message", "Registration success!");
-				PageInfo.prepareAndForwardSite(request, response, PageType.SITE_LOGIN_PAGE);
+				request.getRequestDispatcher("/login").forward(request, response);
 			} else {
 				request.setAttribute("error", validate(user));
 				request.setAttribute("user", user);
-				PageInfo.prepareAndForwardSite(request, response, PageType.SITE_REGIS_PAGE);
+				request.getRequestDispatcher("/regis").forward(request, response);
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

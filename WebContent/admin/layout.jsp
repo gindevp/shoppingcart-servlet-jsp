@@ -6,13 +6,12 @@
 <html lang="en">
 
 <head>
-<title>${pageTitle }</title>
+<title>Admin</title>
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<base href="/Asm_Sof301/admin/">
-
+<base href="/Asm_Sof301/">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -46,19 +45,18 @@ table {
 			</button>
 			<div class="collapse navbar-collapse" id="menu">
 				<div class="navbar-nav">
-					<li class="nav-item"><a href="" class="nav-link">Home</a></li>
-					<li class="nav-item"><a href="videos" class="nav-link">Videos</a></li>
-					<li class="nav-item"><a href="users" class="nav-link">Users</a></li>
-					<li class="nav-item"><a href="reports" class="nav-link">Reports</a></li>
+					<li class="nav-item"><a href="admin/videos" class="nav-link">Videos</a></li>
+					<li class="nav-item"><a href="admin/users" class="nav-link">Users</a></li>
+					<li class="nav-item"><a href="admin/reports" class="nav-link">Reports</a></li>
 				</div>
 			</div>
 			<div class="navbar-nav ml-auto">
-				<a class="nav-link" href="${pageContext.request.contextPath }/login">Login</a>
-				<a class="nav-link" href="#">Logoff</a>
+				<h5 class="nav-link text-dark">Hello ${username }</h5>
+				<a class="nav-link" href="logoff">Sign out</a>
 			</div>
 		</nav>
 		<main class="row">
-			<jsp:include page="${page.contentUrl }"></jsp:include>
+			<jsp:include page="${viewAdmin }"></jsp:include>
 		</main>
 		<footer class="row footer bg-light p-2">
 			<div class="col text-center">FPT Polytechnic &copy;2021. All
@@ -79,15 +77,6 @@ table {
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
-
-	<c:if test="${not empty page.scriptUrl }"></c:if>
-	<jsp:include page="${page.scriptUrl }"></jsp:include>
-	<script>
-		$('#myTab a').on('click', function(e) {
-			e.preventDefault()
-			$(this).tab('show')
-		})
-	</script>
 </body>
 
 </html>

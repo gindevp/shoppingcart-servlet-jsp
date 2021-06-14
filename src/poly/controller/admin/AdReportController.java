@@ -18,8 +18,7 @@ import poly.util.PageType;
 /**
  * Servlet implementation class ReportController
  */
-@WebServlet(urlPatterns = { "/admin/reports", "/admin/reports/index", "/admin/reports/favuser"
-
+@WebServlet(urlPatterns = { "/admin/reports", "/admin/reports/index", "/admin/reports/favuser", "/admin/reports/favshare"
 })
 public class AdReportController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -52,12 +51,17 @@ public class AdReportController extends HttpServlet {
 			this.setSelectedTab(request, response, 1);
 			this.show(request, response);
 			break;
+		case "/favshare":
+			this.setSelectedTab(request, response, 3);
+			this.show(request, response);
+			break;
 		default:
 			this.setSelectedTab(request, response, 1);
 			this.show(request, response);
 			break;
 		}
-		PageInfo.prepareAndForward(request, response, PageType.AD_REPORT_PAGE);
+		request.setAttribute("view", "/admin/reports/reports.jsp");
+		request.getRequestDispatcher("/admin/layout.jsp").forward(request, response);
 	}
 
 	private void showTab2(HttpServletRequest request, HttpServletResponse response)
@@ -91,15 +95,26 @@ public class AdReportController extends HttpServlet {
 		request.setAttribute("favVideos", favVideos);
 
 		String videoUserId = request.getParameter("videoUserId");
+		String videoUserId1 = request.getParameter("videoUserId1");
+
 		System.out.println(videoUserId);
 		List<Video> videos = vDao.getAll("Video");
 		if (videoUserId == null && videos.size() > 0) {
 			videoUserId = videos.get(0).getId();
 		}
+		
+		if (videoUserId1 == null && videos.size() > 0) {
+			videoUserId1 = videos.get(0).getId();
+		}
+		
 		List<Object[]> favUser = fDao.favUserRep(videoUserId);
-
 		request.setAttribute("videoSelected", videoUserId);
 		request.setAttribute("favUser", favUser);
+
+		List<Object[]> favShare = fDao.favShareRep(videoUserId1);
+		request.setAttribute("videoSelected11", videoUserId1);
+		request.setAttribute("favShare", favShare);
+
 	}
 
 	private void setSelectedTab(HttpServletRequest request, HttpServletResponse response, int tab) {
