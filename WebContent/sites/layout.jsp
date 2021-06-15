@@ -40,23 +40,21 @@ table {
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav">
 					<li class="nav-item"><a href="sites/home"
-						class="nav-link active">Home</a></li>
-					<li class="nav-item"><a href="sites/favorite" class="nav-link">Favorite</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#"
-						id="navbarDropdownMenuLink" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false"> My Account</a>
-						<div class="dropdown-menu"
-							aria-labelledby="navbarDropdownMenuLink">
-
-							<a class="dropdown-item" href="sites/change_password">Change
-								Password</a> <a class="dropdown-item" href="sites/edit_profile">Edit
-								Profile</a>
-
-						</div></li>
+						class="nav-link active"><i class="fas fa-house-user"></i> Home</a></li>
+					<li class="nav-item"><a href="sites/favorite" class="nav-link"><i class="fas fa-clipboard-list"></i> My Favorite</a></li>
 				</div>
-				<div class="navbar-nav ml-auto">
-					<a class="nav-link" href="logoff">Sign out</a>
+
+				<div class="dropdown ml-auto">
+					<button class="btn border border-secondary dropdown-toggle"
+						type="button" id="acc" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">
+						<i class="fas fa-user-circle"></i> ${username }
+					</button>
+					<div class="dropdown-menu" aria-labelledby="acc">
+						<a class="dropdown-item" href="sites/users/change_password">Change
+							Password</a> <a class="dropdown-item" href="sites/users/edit_profile">Edit
+							Profile</a> <a class="dropdown-item" href="logoff">Sign Out</a>
+					</div>
 				</div>
 			</div>
 		</nav>

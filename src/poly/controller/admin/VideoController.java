@@ -25,7 +25,7 @@ import poly.util.UploadUtil;
 @WebServlet(urlPatterns = { "/admin/videos", "/admin/videos/create", "/admin/videos/store", "/admin/videos/edit",
 		"/admin/videos/update", "/admin/videos/delete", "/admin/videos/index", "/admin/videos/reset" })
 @MultipartConfig
-public class AdVideoController extends HttpServlet {
+public class VideoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private VideoDAO videoDAO;
 	private int isEdit = 0;
@@ -33,7 +33,7 @@ public class AdVideoController extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AdVideoController() {
+	public VideoController() {
 		super();
 		videoDAO = new VideoDAO();
 	}

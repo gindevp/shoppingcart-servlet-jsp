@@ -40,7 +40,7 @@
 	</div>
 	<div class="tab-pane fade show ${isSelectTab2 ? "active" : ""}" id="favUsers" role="tabpanel"
 		aria-labelledby="favUsers-tab">
-		<form action="admin/reports/favuser" method="get">
+		<form action="admin/reports/favuser" method="POST">
 			<div class="form-inline my-4">
 				<label class="mx-2" for="">Video Title: </label>
 				<div class="form-group">

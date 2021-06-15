@@ -37,7 +37,7 @@ table {
 	<div class="container border">
 		<nav
 			class="navbar row sticky-top navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="#">Administration</a>
+			<a class="navbar-brand text-primary" href="#">ADMINISTRATION</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#menu" aria-controls="menu" aria-expanded="false"
 				aria-label="Toggle navigation">
@@ -45,19 +45,24 @@ table {
 			</button>
 			<div class="collapse navbar-collapse" id="menu">
 				<div class="navbar-nav">
-					<li class="nav-item"><a href="admin/videos" class="nav-link">Videos</a></li>
-					<li class="nav-item"><a href="admin/users" class="nav-link">Users</a></li>
-					<li class="nav-item"><a href="admin/reports" class="nav-link">Reports</a></li>
+					<li class="nav-item"><a href="admin/users" class="nav-link"><i
+							class="fas fa-users"></i> User</a></li>
+					<li class="nav-item"><a href="admin/videos" class="nav-link"><i
+							class="fas fa-video"></i> Video</a></li>
+					<li class="nav-item"><a href="admin/reports" class="nav-link"><i
+							class="fas fa-chart-line"></i> Report</a></li>
 				</div>
 			</div>
-			<div class="navbar-nav ml-auto">
-				<h5 class="nav-link text-dark">Hello ${username }</h5>
-				<a class="nav-link" href="logoff">Sign out</a>
+			<div class="dropdown ml-auto">
+				<button class="btn border border-secondary dropdown-toggle" type="button"
+					id="acc" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"><i class="fas fa-user-circle"></i> ${username }</button>
+				<div class="dropdown-menu" aria-labelledby="acc">
+					<a class="dropdown-item" href="logoff">Sign Out</a>
+				</div>
 			</div>
 		</nav>
-		<main class="row">
-			<jsp:include page="${viewAdmin }"></jsp:include>
-		</main>
+		<jsp:include page="${viewAdmin }"></jsp:include>
 		<footer class="row footer bg-light p-2">
 			<div class="col text-center">FPT Polytechnic &copy;2021. All
 				rights reserved.</div>

@@ -9,6 +9,7 @@ import poly.dao.UserDAO;
 import poly.dao.VideoDAO;
 import poly.domain.Email;
 import poly.domain.FavoriteRep;
+import poly.entity.Favorite;
 import poly.entity.User;
 import poly.entity.Video;
 import poly.util.HashUtil;
@@ -33,18 +34,22 @@ public class App {
 //		video.setActive(1);
 //		dao.create(video);
 
-//		FavoriteDAO favDao = new FavoriteDAO();
+		FavoriteDAO favDao = new FavoriteDAO();
 //		try {
-//			List<Object[]> list = favDao.favUserRep("video1");
+//			List<Favorite> list = favDao.getAll("Favorite");
 //			list.forEach(i -> {
-//				System.out.println(i[0]);
+//				System.out.println(i);
 //			});
 //		} catch (Exception e) {
 //			// TODO: handle exception
 //		}
 		
-		List<Video> list = vdao.getActiveVideo();
-		list.forEach(i -> System.out.println(i.toString()));
+		User user = udao.findById("user1");
+		List<Favorite> favorites = user.getFavorites();
+		favorites.forEach(i -> System.out.println(i));
+		
+//		List<Video> list = vdao.getActiveVideo();
+//		list.forEach(i -> System.out.println(i.toString()));
 		
 //		Email email = new Email("hungnnph09719@fpt.edu.vn", "Content <br> fsd", "Subject");
 //		try {

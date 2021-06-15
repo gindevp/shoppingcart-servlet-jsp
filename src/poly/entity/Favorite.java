@@ -1,6 +1,7 @@
 package poly.entity;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +29,7 @@ public class Favorite {
 	private Video video;
 
 	@Column(name = "likedDate")
-	private Date likedDate = new Date(new java.util.Date().getTime());
+	private Timestamp likedDate = new Timestamp(new java.util.Date().getTime());
 
 	public Integer getId() {
 		return id;
@@ -54,12 +55,17 @@ public class Favorite {
 		this.video = video;
 	}
 
-	public Date getLikedDate() {
+	public Timestamp getLikedDate() {
 		return likedDate;
 	}
 
-	public void setLikedDate(Date likedDate) {
+	public void setLikedDate(Timestamp likedDate) {
 		this.likedDate = likedDate;
+	}
+
+	@Override
+	public String toString() {
+		return "Favorite [id=" + id + ", user=" + user.getFullname() + ", video=" + video.getTitle() + ", likedDate=" + likedDate + "]";
 	}
 
 }

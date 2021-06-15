@@ -15,7 +15,7 @@
 			<div class="row">
 				<div class="form-group col">
 					<label for="">Username:</label> <input type="text" name="username"
-						value="${sessionScope.username }" id="" class="form-control" placeholder=""
+						value="${user.username }" id="" class="form-control" placeholder="" disabled
 						aria-describedby="helpId"> <small id="helpId"
 						class="text-muted">Username is required</small>
 				</div>

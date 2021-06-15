@@ -15,40 +15,33 @@ import poly.entity.Video;
 import poly.util.PageInfo;
 import poly.util.PageType;
 
-/**
- * Servlet implementation class ReportController
- */
-@WebServlet(urlPatterns = { "/admin/reports", "/admin/reports/index", "/admin/reports/favuser", "/admin/reports/favshare"
+@WebServlet(urlPatterns = { 
+		"/admin/reports", 
+		"/admin/reports/favuser", 
+		"/admin/reports/favshare"
 })
-public class AdReportController extends HttpServlet {
+public class ReportController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private FavoriteDAO fDao;
 	private VideoDAO vDao;
 
-	public AdReportController() {
+	public ReportController() {
 		super();
 		fDao = new FavoriteDAO();
 		vDao = new VideoDAO();
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		this.fillVideoList(request, response);
 
 		String action = request.getRequestURI().replace(request.getContextPath() + "/admin/reports", "");
+		System.out.println(request.getRequestURI());
 		System.out.println(action);
 
 		switch (action) {
 		case "/favuser":
 			this.setSelectedTab(request, response, 2);
-			this.show(request, response);
-			break;
-		case "/index":
-			this.setSelectedTab(request, response, 1);
 			this.show(request, response);
 			break;
 		case "/favshare":
@@ -60,35 +53,17 @@ public class AdReportController extends HttpServlet {
 			this.show(request, response);
 			break;
 		}
-		request.setAttribute("view", "/admin/reports/reports.jsp");
+		request.setAttribute("viewAdmin", "/admin/reports/reports.jsp");
 		request.getRequestDispatcher("/admin/layout.jsp").forward(request, response);
 	}
-
-	private void showTab2(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String videoUserId = request.getParameter("videoUserId");
-		System.out.println(videoUserId);
-		List<Video> videos = vDao.getAll("Video");
-		if (videoUserId == null && videos.size() > 0) {
-			videoUserId = videos.get(0).getId();
-		}
-		List<Object[]> favUser = fDao.favUserRep(videoUserId);
-
-		request.setAttribute("videoSelected", videoUserId);
-		request.setAttribute("favUser", favUser);
-	}
-
+	
 	private void fillVideoList(HttpServletRequest request, HttpServletResponse response) {
 		List<Video> videos = vDao.getAll("Video");
+		System.out.println(videos.size());
 		request.setAttribute("videos", videos);
 	}
 
-	private void showTab1(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		List<Object[]> favVideos = fDao.favVideoRep();
-		request.setAttribute("favVideos", favVideos);
 
-	}
 
 	private void show(HttpServletRequest request, HttpServletResponse response) {
 		List<Object[]> favVideos = fDao.favVideoRep();
@@ -97,8 +72,8 @@ public class AdReportController extends HttpServlet {
 		String videoUserId = request.getParameter("videoUserId");
 		String videoUserId1 = request.getParameter("videoUserId1");
 
-		System.out.println(videoUserId);
 		List<Video> videos = vDao.getAll("Video");
+		
 		if (videoUserId == null && videos.size() > 0) {
 			videoUserId = videos.get(0).getId();
 		}
@@ -107,11 +82,16 @@ public class AdReportController extends HttpServlet {
 			videoUserId1 = videos.get(0).getId();
 		}
 		
+		System.out.println("_show()_Video Id: " + videoUserId);
+		System.out.println("_show()_Video Id1: " + videoUserId1);
+		
 		List<Object[]> favUser = fDao.favUserRep(videoUserId);
+		System.out.println("FavUser_size: " + favUser.size());
 		request.setAttribute("videoSelected", videoUserId);
 		request.setAttribute("favUser", favUser);
 
 		List<Object[]> favShare = fDao.favShareRep(videoUserId1);
+		System.out.println("FavShare_size: " + favShare.size());
 		request.setAttribute("videoSelected11", videoUserId1);
 		request.setAttribute("favShare", favShare);
 
@@ -123,10 +103,6 @@ public class AdReportController extends HttpServlet {
 		request.setAttribute("isSelectTab3", tab == 3 ? true : false);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub

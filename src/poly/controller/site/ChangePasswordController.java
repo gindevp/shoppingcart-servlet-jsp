@@ -17,24 +17,28 @@ import poly.util.PageInfo;
 import poly.util.PageType;
 import poly.util.SessionUtil;
 
-
-@WebServlet("/sites/change_password")
+@WebServlet("/sites/users/change_password")
 public class ChangePasswordController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDAO userDao;
-	
-    public ChangePasswordController() {
-        super();
-        this.userDao = new UserDAO();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		PageInfo.prepareAndForwardSite(request, response, PageType.SITE_CHANGE_PASSWORD_PAGE);
+	public ChangePasswordController() {
+		super();
+		this.userDao = new UserDAO();
 	}
 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String username = SessionUtil.getLoginedUsername(request);
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		User user = userDao.findById(username);
+		request.setAttribute("user", user);
+		request.setAttribute("view", "/sites/users/change_password.jsp");
+		request.getRequestDispatcher("/sites/layout.jsp").forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		ChangePassword newUser = new ChangePassword();
 		String usernameLogin = SessionUtil.getLoginedUsername(request);
 		User userLogin = userDao.findById(usernameLogin);
@@ -46,15 +50,14 @@ public class ChangePasswordController extends HttpServlet {
 					if (userDao.update(userLogin)) {
 						request.setAttribute("message", "Password has changed!");
 					}
-					
+
 				} else {
 					request.setAttribute("error", "New Password and New Confirm Password are not identical!");
 				}
 			} else {
 				request.setAttribute("error", "Invalid Username or Password");
 			}
-			PageInfo.prepareAndForwardSite(request, response, PageType.SITE_CHANGE_PASSWORD_PAGE);
-
+			this.doGet(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

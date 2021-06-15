@@ -35,6 +35,9 @@ public class User implements Serializable {
 	@OneToMany(mappedBy = "user")
 	private List<Share> shares = new ArrayList<Share>();
 
+	@OneToMany(mappedBy = "user")
+	private List<Favorite> favorites = new ArrayList<Favorite>();
+
 	public String getUsername() {
 		return username;
 	}
@@ -83,10 +86,18 @@ public class User implements Serializable {
 		this.shares = shares;
 	}
 
+	public List<Favorite> getFavorites() {
+		return favorites;
+	}
+
+	public void setFavorites(List<Favorite> favorites) {
+		this.favorites = favorites;
+	}
+
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password + ", fullname=" + fullname + ", email=" + email + ", admin="
-				+ admin + "]";
+		return "User [username=" + username + ", password=" + password + ", fullname=" + fullname + ", email=" + email
+				+ ", admin=" + admin + "]";
 	}
 
 }

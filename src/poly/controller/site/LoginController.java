@@ -63,10 +63,10 @@ public class LoginController extends HttpServlet {
 
 			if (user != null && HashUtil.verify(form.getPassword(), user.getPassword())) {
 				SessionUtil.add(request, "username", user.getUsername());
+				request.getSession().setAttribute("userLogined", user);
 				CookieUtil.add("username", user.getUsername(), form.isRem() ? 24 : 0, response);
-				request.setAttribute("isLogin", true);
 				if (user.getAdmin() == 1) {
-					PageInfo.prepareAndForward(request, response, PageType.AD_VIDEO_PAGE);
+					response.sendRedirect(request.getContextPath() + "/admin/users");
 				} else {
 					request.getRequestDispatcher("/sites/home").forward(request, response);
 				}
