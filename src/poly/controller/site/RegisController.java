@@ -20,7 +20,7 @@ import poly.util.PageInfo;
 import poly.util.PageType;
 import poly.util.Validator;
 
-@WebServlet("/regis")
+@WebServlet("")
 public class RegisController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDAO userDAO;
@@ -51,7 +51,6 @@ public class RegisController extends HttpServlet {
 				request.setAttribute("error", validate(user));
 				request.setAttribute("user", user);
 				request.getRequestDispatcher("/regis").forward(request, response);
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

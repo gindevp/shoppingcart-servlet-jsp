@@ -26,10 +26,6 @@ html {
 body {
 	height: 100%;
 }
-
-table {
-	width: 70rem !important;
-}
 </style>
 </head>
 
@@ -37,7 +33,7 @@ table {
 	<div class="container border">
 		<nav
 			class="navbar row sticky-top navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand text-primary" href="#">ADMINISTRATION</a>
+			<a class="navbar-brand text-primary" href="admin/users">ADMINISTRATION</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#menu" aria-controls="menu" aria-expanded="false"
 				aria-label="Toggle navigation">

@@ -56,8 +56,45 @@
 					<div class="card-footer text-right">
 						<div class="row">
 							<button class="col m-2 btn btn-primary">Login</button>
-							<a href="${pageContext.request.contextPath }/regis"
-								class="btn col m-2 btn border border-primary text-primary bg-light">Registration</a>
+
+							<button type="button" class="btn col m-2 btn border border-primary text-primary bg-light" data-toggle="modal"
+								data-target="#createModal">Registration</button>
+
+							<!-- Modal -->
+							<div class="modal fade" id="createModal" tabindex="-1"
+								role="dialog" aria-labelledby="exampleModalLabel"
+								aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<form
+											action="${pageContext.request.contextPath }/regis"
+											enctype="multipart/form-data" method="POST">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<div class="form-group">
+													<label for="">Name:</label> <input type="text" name="name"
+														class="form-control">
+												</div>
+												<div class="form-group">
+													<label for="">Poster:</label> <input type="file"
+														name="upload" class="form-control-file">
+												</div>
+											</div>
+											<div class="modal-footer">
+												<input type="button" class="btn btn-secondary"
+													data-dismiss="modal" value="Close"> <input
+													type="submit" class="btn btn-success" value="Save">
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
 						</div>
 						<a href="" class="text-primary text-3 mx-auto"><small>Forgot
 								Password</small></a>

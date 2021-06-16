@@ -56,6 +56,7 @@
 		</div>
 	</div>
 </nav>
+<jsp:include page="/sites/common/inform.jsp"></jsp:include>
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -75,7 +76,7 @@
 				<td>${user.email }</td>
 				<td>${user.admin == 1 ? "Admin" : "User" }</td>
 				<td>
-					<button type="button" class="btn btn-warning" data-toggle="modal"
+					<button type="button" class="btn btn-info" data-toggle="modal"
 						data-target="#editModal${user.username }"><i class="fas fa-edit"></i> Edit</button> <!-- Modal -->
 					<div class="modal fade" id="editModal${user.username }">
 						<div class="modal-dialog" role="document">
@@ -117,7 +118,7 @@
 									<div class="modal-footer">
 										<input type="button" class="btn btn-secondary"
 											data-dismiss="modal" value="Close" /> <input type="submit"
-											class="btn btn-warning" value="Update" />
+											class="btn btn-info" value="Update" />
 									</div>
 								</form>
 							</div>

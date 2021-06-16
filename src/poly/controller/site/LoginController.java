@@ -24,7 +24,7 @@ import poly.util.SessionUtil;
 /**
  * Servlet implementation class SiteLoginController
  */
-@WebServlet("/login")
+@WebServlet(urlPatterns = {"/login", "/regis", "forgot_password"})
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDAO userDAO;
@@ -48,10 +48,7 @@ public class LoginController extends HttpServlet {
 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String user1 = request.getParameter("username");

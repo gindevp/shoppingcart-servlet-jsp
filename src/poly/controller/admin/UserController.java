@@ -17,37 +17,20 @@ import poly.util.HashUtil;
 import poly.util.PageInfo;
 import poly.util.PageType;
 
-/**
- * Servlet implementation class UserController
- */
-@WebServlet(urlPatterns = {
-		"/admin/users",
-		"/admin/users/create",
-		"/admin/users/edit",
-		"/admin/users/delete"
-})
+@WebServlet(urlPatterns = { "/admin/users", "/admin/users/create", "/admin/users/edit", "/admin/users/delete" })
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDAO uDao;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public UserController() {
 		super();
 		// TODO Auto-generated constructor stub
 		this.uDao = new UserDAO();
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getRequestURI().replace(request.getContextPath() + "/admin/users", "");
-
-		System.out.println("URI: " + request.getRequestURI());
 		System.out.println("Action: " + action);
 		switch (action) {
 		case "/create":
@@ -65,20 +48,24 @@ public class UserController extends HttpServlet {
 		}
 	}
 
-	private void create(HttpServletRequest request, HttpServletResponse response) {
+	private void create(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = new User();
 		try {
 			BeanUtils.populate(user, request.getParameterMap());
 			System.out.println(user.toString());
 			user.setPassword(HashUtil.hash(user.getPassword()));
-			uDao.create(user);
-			response.sendRedirect(request.getContextPath() + "/admin/users");
+			if (uDao.create(user)) {
+				request.setAttribute("message", "Created successfully!");
+			} else {
+				request.setAttribute("error", "Create failed!");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		request.getRequestDispatcher("/admin/users").forward(request, response);
 	}
 
-	private void edit(HttpServletRequest request, HttpServletResponse response) {
+	private void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = new User();
 		try {
 			BeanUtils.populate(user, request.getParameterMap());
@@ -86,21 +73,30 @@ public class UserController extends HttpServlet {
 			User oldUser = uDao.findById(user.getUsername());
 			user.setPassword(oldUser.getPassword());
 			uDao.update(user);
-			response.sendRedirect(request.getContextPath() + "/admin/users");
+			if (uDao.update(user)) {
+				request.setAttribute("message", "Update successfully!");
+			} else {
+				request.setAttribute("error", "Update failed!");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		request.getRequestDispatcher("/admin/users").forward(request, response);
 	}
 
-	private void delete(HttpServletRequest request, HttpServletResponse response) {
+	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			String id = request.getParameter("id");
 			User user = uDao.findById(id);
-			uDao.delete(user);
-			response.sendRedirect(request.getContextPath() + "/admin/users");
+			if (uDao.delete(user)) {
+				request.setAttribute("message", "Deleted!");
+			} else {
+				request.setAttribute("error", "Delete failed!");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		request.getRequestDispatcher("/admin/users").forward(request, response);
 	}
 
 	private void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -111,14 +107,24 @@ public class UserController extends HttpServlet {
 		request.getRequestDispatcher("/admin/layout.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String action = request.getRequestURI().replace(request.getContextPath() + "/admin/users", "");
+		System.out.println("Action: " + action);
+		switch (action) {
+		case "/create":
+			this.create(request, response);
+			break;
+		case "/edit":
+			this.edit(request, response);
+			break;
+		case "/delete":
+			this.delete(request, response);
+			break;
+		default:
+			this.index(request, response);
+			break;
+		}
 	}
 
 }
